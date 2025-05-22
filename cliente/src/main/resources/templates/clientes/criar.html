@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="pt-BR" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cadastro de Clientes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body>
+<div class="container my-3">
+    <h1 class="text-center mb-3">Cadastro de Clientes</h1>
+
+    <form th:action="@{/clientes/criar}" th:object="${dto}" method="post">
+
+        <div class="row mb-3">
+            <label class="col-sm-4 col-form-label" for="nome"> Nome </label>
+            <div class="col-sm-8">
+                <input type="text" id="nome" class="form-control" th:field="${dto.nome}">
+                <p th:if="${#fields.hasErrors('nome')}"
+                   th:errorclass="text-danger"
+                   th:errors="${dto.nome}" ></p>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label class="col-sm-4 col-form-label" for="sobrenome"> Sobrenome </label>
+            <div class="col-sm-8">
+                <input type="text" id="sobrenome" class="form-control" th:field="${dto.sobrenome}">
+                <p th:if="${#fields.hasErrors('sobrenome')}"
+                   th:errorclass="text-danger"
+                   th:errors="${dto.sobrenome}" ></p>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label class="col-sm-4 col-form-label" for="email"> E-mail </label>
+            <div class="col-sm-8">
+                <input type="text" id="email" class="form-control" th:field="${dto.email}">
+                <p th:if="${#fields.hasErrors('email')}"
+                   th:errorclass="text-danger"
+                   th:errors="${dto.email}" ></p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="offset-sm-4 col-sm-4 d-grid">
+                <button type="submit" class="btn btn-primary">Enviar</button>
+            </div>
+            <div class="col-sm-4 d-grid">
+                <a class="btn btn-outline-primary" href="/clientes">Cancelar</a>
+            </div>
+        </div>
+    </form>
+
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
