@@ -14,6 +14,16 @@ public class ClienteDTO {
 	@NotEmpty(message = "E-mail é obrigatório")
 	@Email
 	private String email;
+
+	@NotEmpty(message = "Senha é obrigatória")
+	private String senha;
+
+	public String getSenha() {
+    	return senha;
+	}
+	public void setSenha(String senha) {
+   	this.senha = senha;
+	}
 	
 	public String getNome() {
 		return nome;
