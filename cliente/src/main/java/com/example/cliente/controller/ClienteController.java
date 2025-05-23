@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.example.cliente.repository.ClienteRepository;
 
@@ -21,6 +22,8 @@ public class ClienteController {
 
 	@Autowired
 	private ClienteRepository repo;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	@GetMapping({"","/"})
 	public String getClientes(Model model) {
@@ -40,18 +43,31 @@ public class ClienteController {
 
 	@PostMapping("/criar")
 	public String criarCliente(@Valid @ModelAttribute("dto") ClienteDTO dto,
-							   BindingResult result) {
-		// E-mail já cadastrado
-		if(repo.findByEmail(dto.getEmail()) != null) {
-			result.addError(new FieldError("dto", "email", dto.getEmail(),
-			false, null, null, "E-mail já cadastrado"));
+	                           BindingResult result) {
+	    // E-mail já cadastrado
+	    if(repo.findByEmail(dto.getEmail()) != null) {
+	        result.addError(new FieldError("dto", "email", dto.getEmail(),
+	        false, null, null, "E-mail já cadastrado"));
+	
+	        return "clientes/criar";
+	    }
+	    // Campos nulos
+	    if(result.hasErrors()) {
+	        return "clientes/criar";
+	    }
 
-			return"clientes/criar";
-		}
-		// Campos nulos
-		if(result.hasErrors()) {
-			return "clientes/criar";
-		}
+    Cliente cliente = new Cliente();
+    cliente.setNome(dto.getNome());
+    cliente.setSobrenome(dto.getSobrenome());
+    cliente.setEmail(dto.getEmail());
+    cliente.setCriado(new Date());
+    // Adicione esta linha para salvar a senha criptografada
+    cliente.setSenha(passwordEncoder.encode(dto.getSenha()));
+
+    repo.save(cliente);
+
+    return "redirect:/clientes";
+}
 
 		Cliente cliente = new Cliente();
 		cliente.setNome(dto.getNome());
