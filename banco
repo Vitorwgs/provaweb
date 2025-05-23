@@ -1,7 +1,7 @@
 CREATE DATABASE IF NOT EXISTS cliente_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE cliente_db;
 
-CREATE TABLE cliente (
+CREATE TABLE clientes (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
     sobrenome VARCHAR(100),
