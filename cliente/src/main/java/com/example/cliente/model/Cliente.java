@@ -16,6 +16,17 @@ public class Cliente {
 	@Column(unique = true, nullable = false)
 	private String email;
 	private Date criado;
+
+	@Column(nullable = false)
+	private String senha;
+
+
+	public String getSenha() {
+    	return senha;
+	}
+	public void setSenha(String senha) {
+    	this.senha = senha;
+	}
 	
 	public int getId() {
 		return id;
